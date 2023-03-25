@@ -26,3 +26,16 @@ button {
     font-size: 150%;
     
 }
+
+#multi-choice {
+    display:flex;
+    flex-flow: column wrap;
+    margin: 25px;
+    justify-items: left;
+    width: 50%;
+
+}
+
+button {
+    margin: 25px
+}
