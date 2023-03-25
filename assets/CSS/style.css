@@ -1,0 +1,28 @@
+/* add CSS reset */
+
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: flex-end;  
+}
+
+header div {
+    padding: 5px;
+}
+
+main {
+    border: 5px solid black;
+    margin: 50px 200px 0px 200px;
+    padding-top: 100px;
+    padding-left: 100px;
+    padding-right: 500px;
+    padding-bottom: 500px;
+}
+
+button {
+    font-size: 150%;
+    
+}
