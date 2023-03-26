@@ -29,10 +29,10 @@ button {
 
 #multi-choice {
     display:flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     margin: 25px;
     justify-items: left;
-    width: 50%;
+    width: 75%;
 
 }
 
