@@ -1,70 +1,69 @@
-var startButton = document.querySelector("#start-quiz")
-var questionArea = document.querySelector("#header-question")
-var answerButtons = document.querySelector("#multi-choice")
-var subHeader = document.querySelector("#title-subheader")
-
-startButton.addEventListener("click", beginQuiz)
-
-
-
-
-    
-
-questionArea.textContent = "Question 1 | Fill in the blank: 'I like ______! They're comfy and easy to wear.'"
-    
-var options = ["dresses", "flip-flops", "shorts", "hoodies"]
-
-for (i = 0; i < options.length; i++) {
-    var x = document.createElement("BUTTON");
-    var t = document.createTextNode(options[i]);
-    x.appendChild(t);
-    answerButtons.appendChild(x);
-}
-
-questionArea.textContent = "Question 2 | The old man in Veridian City does not let you pass the first time you visit because:"
-
-var options = ["You don't have enough money for the toll", "He hasn't had his coffee yet", "There is a dangerous fire up ahead", "He doesn't like your shoes"]
-
-    for (i = 0; i < options.length; i++) {
-        var x = document.createElement("BUTTON");
-        var t = document.createTextNode(options[i]);
-        x.appendChild(t);
-        answerButtons.appendChild(x);
-}
+var startQuiz = document.querySelector("#start-quiz")
+var timer = document.querySelector("#timer")
+var timeLeft = 75
+var questionSpace = document.querySelector("#header-question")
+var multiChoiceSpace = document.querySelector("#multi-choice")
+var choice1 = document.querySelector("#choice1")
+var choice2 = document.querySelector("#choice2")
+var choice3 = document.querySelector("#choice3")
+var choice4 = document.querySelector("#choice4")
 
 
-answerButtons.addEventListener("click", function() {
-    answerButtons.removeChild(answerButtons.firstChild)
-    answerButtons.removeChild(answerButtons.firstChild)
-    answerButtons.removeChild(answerButtons.firstChild)
-    answerButtons.removeChild(answerButtons.firstChild)
+var questionNumber = 0
 
-
-    
-    questionArea.textContent = "Question 3 | When the train in Goldenrod City is out of service, the conductor considers doing what to help passengers get to their destination:"
-
-    var options = ["Carry them on his back", "Hitch a wagon to his Tauros", "Catch Pigeots to carry them", "Dig a tunnel"]
-
-        for (i = 0; i < options.length; i++) {
-            var x = document.createElement("BUTTON");
-            var t = document.createTextNode(options[i]);
-            x.appendChild(t);
-            answerButtons.appendChild(x);
-        }
+var questions = [
+    {
+        questionText: "Question 1 | Fill in the blank: 'I like ______! They're comfy and easy to wear.'"
+        multiChoiceOptions: ["Dresses", "Sandals", "Shorts", "Hoodies"]
+        correctChoice: "Shorts"
     }
-)
+
+    {
+        questionText: "Question 2 | When you first arrive in Veridian City, why won't the old man less you pass?"
+        multiChoiceOptions: ["You don't have enough money to pay the toll", "He hasn't had his coffee yet", "He doesn't like your attitude", "There's a dangerous Pokemon up ahead"]
+        correctChoice: "He hasn't had his coffee yet"
+    }
+
+    {
+        questionText: "Question 3 | While the train at Goldenrod City is out of service, how does the conductor consider as a way to get passengers to their destinations?"
+        multiChoiceOptions: ["Carry them on his back", "Hitch a wagon to his Tauros", "Catch some Pigeots to fly passengers", "Have Diglett dig a tunnel"]
+        correctChoice: "Carry them on his back"
+    }
+
+    {
+        questionText: "Question 4 | Which one of these types is Grass weak against?"
+        multiChoiceOptions: ["Water", "Fire", "Rock", "Normal"]
+        correctChoice: "Fire"
+    }
+
+    {
+        questionText: "Question 5 | What does the item Soft Sand do?"
+        multiChoiceOptions: ["Evolves a ground type Pokemon", "Powers up Rock type moves", "Raises Sp Def by 1", "Powers up Ground type moves"]
+        correctChoice: "Powers up Ground type moves"
+    }
+]
 
 function beginQuiz() {
-    console.log("ran")
-    startButton.remove()
-    subHeader.remove()
+    // remove #intro-header and intro-text and start button
+    // unhide question, multi-choice, and buttons
+    // show question 1
 }
 
-function proceed() {
-    answerButtons.removeChild(answerButtons.firstChild)
-    answerButtons.removeChild(answerButtons.firstChild)
-    answerButtons.removeChild(answerButtons.firstChild)
-    answerButtons.removeChild(answerButtons.firstChild)
+function questionDisplay() {
+    questionSpace.textContent = questions[questionNumber].questionText
+    choice1.textContent = questions[questionNumber].multiChoiceOptions[0]
+    choice2.textContent = questions[questionNumber].multiChoiceOptions[1]
+    choice3.textContent = questions[questionNumber].multiChoiceOptions[2]
+    choice4.textContent = questions[questionNumber].multiChoiceOptions[3]
 }
-answerButtons.addEventListener("click", proceed)
-startButton.addEventListener("click", beginQuiz)
+
+function nextQuestion() {
+    questionNumber++
+}
+
+startQuiz.onclick = beginQuiz()
+
+choice1.onclick = nextQuestion()
+choice2.onclick = nextQuestion()
+choice3.onclick = nextQuestion()
+choice4.onclick = nextQuestion()

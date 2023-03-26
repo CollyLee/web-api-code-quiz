@@ -13,15 +13,24 @@
 
     <header>
         <!-- give this header a linear display type so that time is next to time-header -->
-        <div id="time-header">TIME: </div>
-        <div id="time-remaining">80</div>
+        <div id="timer">TIME: </div>
+        <div id="time-left"></div>
     </header>
     <main>
-        <h1 id="header-question">Quiz Time - Pokemon Edition!</h1>
+        <!-- Intro page text -->
+        <h1 id="intro-header">Quiz Time - Pokemon Edition!</h1>
         <br><br>
-        <p id="title-subheader">Answer these five multiple-choice questions as fast as you can. For each incorrect answer, 10 seconds will be deducted from your time. If the timer hits zero, you lose! Good Luck! </p>
-        <section id="multi-choice"></section>
+        <p id="intro-text">Answer  five multiple-choice questions as fast as you can. For each incorrect answer, 10 seconds will be deducted from your time. If the timer hits zero, you lose! Good Luck! </p>
         <button id="start-quiz" class="btn">Start Quiz</button>
+        
+        <!-- code used on subsequent pages, begins hidden -->
+        <section id= "question"></section>
+        <section id="multi-choice"></section>
+            <button id="choice1"></button>
+            <button id="choice2"></button>
+            <button id="choice3"></button>
+            <button id="choice4"></button>
+        
     </main>
 
     <script src="./assets/JS/script.js"></script>
