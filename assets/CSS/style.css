@@ -4,6 +4,10 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+h1 {
+    font-size: 300%;
+}
+
 header {
     display: flex;
     justify-content: flex-end;  
@@ -28,12 +32,18 @@ button {
 }
 
 #multi-choice {
-    display:flex;
+    display: none;
     flex-flow: column nowrap;
     margin: 25px;
     justify-items: left;
+    text-align: left;
     width: 75%;
 
+}
+
+#question {
+    display: none;
+    font-size: 150%;
 }
 
 button {

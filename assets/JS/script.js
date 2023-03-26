@@ -1,5 +1,6 @@
 var startButton = document.querySelector("#start-quiz")
 var timer = document.querySelector("#timer")
+var introText = document.querySelector("#intro-text")
 var timeLeft = 75
 var questionSpace = document.querySelector("#question")
 var multiChoiceSpace = document.querySelector("#multi-choice")
@@ -10,7 +11,6 @@ var choice4 = document.querySelector("#choice4")
 
 // starts the quiz at question 1
 var questionNumber = 0
-
 
 // every question, options, and answer stored as an array
 var questions = [
@@ -37,14 +37,17 @@ var questions = [
     },
 ]
 
+// starts off the quiz when the Start Quiz button is clicked
 function beginQuiz() {
-    // remove #intro-header and intro-text and start button
-    // unhide question, multi-choice, and buttons
-    // show question 1
+    startButton.remove()
+    introText.remove()
+    multiChoiceSpace.style.display= "flex"
+    questionSpace.style.display= "block"
     console.log("Quiz begun");
-    questionDisplay;
+    questionDisplay();
 }
 
+// displays the next appropriate question based on current question counter
 function questionDisplay() {
     questionSpace.textContent = questions[questionNumber].questionText
     choice1.textContent = questions[questionNumber].multiChoiceOptions[0]
@@ -54,6 +57,7 @@ function questionDisplay() {
     console.log("Onto question" + questionNumber);
 }
 
+// moves on to the next question and deducts time if appropriate
 function nextQuestion() {
 
     questionNumber++;
@@ -66,13 +70,30 @@ function nextQuestion() {
     questionDisplay();
 }
 
+// how do I add multiple ways to get to gameOver function??
+// moves the player to the final screen that displays final score
 function gameOver() {
 
 }
 
+// where should I put this gameOver logic code?
+if (timeLeft <=0) || (questionNumber > questions.length) {
+    gameOver()
+    console.log("GAME OVER")
+}
+
+
+
+
+
+
+
+
+
+// event listeners
 startButton.addEventListener("click", function (begin) {
     begin.preventDefault();
-    questionDisplay();
+    beginQuiz();
 })
 
 choice1.addEventListener("click", function (answer) {
@@ -93,11 +114,3 @@ choice4.addEventListener("click", function (answer) {
 })
 
 
-// where should I put this code?
-if (timeLeft <=0) {
-    gameOver()
-}
-
-if (questionNumber > questions.length) {
-    gameOver()
-}
