@@ -1,7 +1,7 @@
 var startButton = document.querySelector("#start-quiz")
 var timer = document.querySelector("#timer")
 var introText = document.querySelector("#intro-text")
-var timeLeft = 75
+var secondsLeft = 10
 var questionSpace = document.querySelector("#question")
 var multiChoiceSpace = document.querySelector("#multi-choice")
 var choice1 = document.querySelector("#choice1")
@@ -32,7 +32,7 @@ var questions = [
         correctChoice: "Fire",
     }, {
         questionText: "Question 5 | What does the item Soft Sand do?",
-        multiChoiceOptions: ["Evolves a ground type Pokemon", "Powers up Rock type moves", "Raises Sp Def by 1", "Powers up Ground type moves"],
+        multiChoiceOptions: ["Evolves a Ground type Pokemon", "Powers up Rock type moves", "Raises Sp Def by 1", "Powers up Ground type moves"],
         correctChoice: "Powers up Ground type moves",
     },
 ]
@@ -44,10 +44,43 @@ function beginQuiz() {
     multiChoiceSpace.style.display= "flex"
     questionSpace.style.display= "block"
     console.log("Quiz begun");
+    setTime()
     questionDisplay();
 }
 
-// displays the next appropriate question based on current question counter
+// starts the timer when the Start Quiz button is clicked
+function setTime() {
+    var timerInterval = setInterval(function() {
+        secondsLeft--;
+        timer.textContent = secondsLeft + " seconds left";
+        
+        if (secondsLeft <= 0) {
+            clearInterval(timerInterval);
+            alert("TIME'S UP!")
+            gameOver()
+        }
+    }, 1000);
+}
+
+// moves on to the next question and deducts time if appropriate
+function nextQuestion() {
+   
+    if (questionNumber > questions.length) {
+        gameOver()
+   } else {
+
+    questionNumber++;
+    // if (USER-CLICKED-ANSWER == questions[questionNumber].correctChoice) {
+    //     questionNumber++
+    // } else {
+    //     questionNumber++;
+    //     (secondsLeft--);
+    // }
+    questionDisplay();
+   }
+}
+
+// displays the appropriate content based on current question counter; triggered by function nextQuestion
 function questionDisplay() {
     questionSpace.textContent = questions[questionNumber].questionText
     choice1.textContent = questions[questionNumber].multiChoiceOptions[0]
@@ -57,18 +90,7 @@ function questionDisplay() {
     console.log("Onto question" + questionNumber);
 }
 
-// moves on to the next question and deducts time if appropriate
-function nextQuestion() {
 
-    questionNumber++;
-    // if (USER-CLICKED-ANSWER == questions[questionNumber].correctChoice) {
-    //     questionNumber++
-    // } else {
-    //     questionNumber++;
-    //     (timeLeft--);
-    // }
-    questionDisplay();
-}
 
 // how do I add multiple ways to get to gameOver function??
 // moves the player to the final screen that displays final score
@@ -77,12 +99,15 @@ function gameOver() {
 }
 
 // where should I put this gameOver logic code?
-if (timeLeft <=0) || (questionNumber > questions.length) {
+if (secondsLeft <=0)  {
     gameOver()
     console.log("GAME OVER")
 }
 
-
+// where to add this code?
+if  (questionNumber > questions.length) {
+    console.log("GAME OVER")
+    gameOver() }
 
 
 
