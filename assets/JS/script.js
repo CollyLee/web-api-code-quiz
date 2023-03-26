@@ -8,6 +8,7 @@ var choice1 = document.querySelector("#choice1")
 var choice2 = document.querySelector("#choice2")
 var choice3 = document.querySelector("#choice3")
 var choice4 = document.querySelector("#choice4")
+var titleHeader = document.querySelector("#intro-header")
 
 // starts the quiz at question 1
 var questionNumber = 0
@@ -39,8 +40,8 @@ var questions = [
 
 // starts off the quiz when the Start Quiz button is clicked
 function beginQuiz() {
-    startButton.remove()
-    introText.remove()
+    startButton.style.display= "none"
+    introText.style.display= "none"
     multiChoiceSpace.style.display= "flex"
     questionSpace.style.display= "block"
     console.log("Quiz begun");
@@ -65,9 +66,9 @@ function setTime() {
 // moves on to the next question and deducts time if appropriate
 function nextQuestion() {
    
-    if (questionNumber > questions.length) {
+    if (questionNumber >= (questions.length-1)) {
         gameOver()
-   } else {
+    } else {
 
     questionNumber++;
     // if (USER-CLICKED-ANSWER == questions[questionNumber].correctChoice) {
@@ -77,8 +78,7 @@ function nextQuestion() {
     //     (secondsLeft--);
     // }
     questionDisplay();
-   }
-}
+   }}
 
 // displays the appropriate content based on current question counter; triggered by function nextQuestion
 function questionDisplay() {
@@ -87,27 +87,18 @@ function questionDisplay() {
     choice2.textContent = questions[questionNumber].multiChoiceOptions[1]
     choice3.textContent = questions[questionNumber].multiChoiceOptions[2]
     choice4.textContent = questions[questionNumber].multiChoiceOptions[3]
-    console.log("Onto question" + questionNumber);
+    console.log(questionNumber)
 }
 
 
-
-// how do I add multiple ways to get to gameOver function??
 // moves the player to the final screen that displays final score
 function gameOver() {
-
+    introText.style.display= "block"
+    introText.textContent= "Your final score is..."
+    titleHeader.textContent= "WELL DONE!"
+    multiChoiceSpace.style.display= "none"
+    questionSpace.style.display= "none"
 }
-
-// where should I put this gameOver logic code?
-if (secondsLeft <=0)  {
-    gameOver()
-    console.log("GAME OVER")
-}
-
-// where to add this code?
-if  (questionNumber > questions.length) {
-    console.log("GAME OVER")
-    gameOver() }
 
 
 
