@@ -51,3 +51,7 @@ button {
 button {
     margin: 25px
 }
+
+#player-initials {
+    display: none;
+}

@@ -25,10 +25,18 @@
         <!-- code used on subsequent pages, begins hidden -->
         <section id= "question"></section>
         <section id="multi-choice">
-            <button id="choice1"></button>
-            <button id="choice2"></button>
-            <button id="choice3"></button>
-            <button id="choice4"></button>
+            <button class="choice" id="choice1"></button>
+            <button class="choice" id="choice2"></button>
+            <button class="choice" id="choice3"></button>
+            <button class="choice" id="choice4"></button>
+        </section>
+
+        <!-- code used on final page, hidden until gameOver() -->
+        <section id="player-initials">
+            <form>
+                <input type="text" id="name" name="player-name">
+                <button type="submit" id="save-initials">Save Your Initials</button>
+            </form>
         </section>
     </main>
 

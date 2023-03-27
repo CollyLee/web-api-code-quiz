@@ -1,7 +1,8 @@
+// global variables
 var startButton = document.querySelector("#start-quiz")
 var timer = document.querySelector("#timer")
 var introText = document.querySelector("#intro-text")
-var secondsLeft = 10
+var secondsLeft = 75
 var questionSpace = document.querySelector("#question")
 var multiChoiceSpace = document.querySelector("#multi-choice")
 var choice1 = document.querySelector("#choice1")
@@ -9,11 +10,14 @@ var choice2 = document.querySelector("#choice2")
 var choice3 = document.querySelector("#choice3")
 var choice4 = document.querySelector("#choice4")
 var titleHeader = document.querySelector("#intro-header")
+var playerInitials = document.querySelector("#player-initials")
+var saveInitialsBtn = document.querySelector("#save-initials")
+var playerName = document.querySelector("#name")
 
 // starts the quiz at question 1
 var questionNumber = 0
 
-// every question, options, and answer stored as an array
+// every question, options, and answer stored as an object with an array of properties
 var questions = [
     {
         questionText: "Question 1 | Fill in the blank: 'I like ______! They're comfy and easy to wear.'",
@@ -54,10 +58,16 @@ function setTime() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timer.textContent = secondsLeft + " seconds left";
+
+        if (questionNumber > (questions.length-1)) {
+            clearInterval(timerInterval);
+            gameOver();
+            return null;
+        }
         
         if (secondsLeft <= 0) {
             clearInterval(timerInterval);
-            alert("TIME'S UP!")
+           alert("TIME'S UP!")
             gameOver()
         }
     }, 1000);
@@ -65,20 +75,9 @@ function setTime() {
 
 // moves on to the next question and deducts time if appropriate
 function nextQuestion() {
-   
-    if (questionNumber >= (questions.length-1)) {
-        gameOver()
-    } else {
-
     questionNumber++;
-    // if (USER-CLICKED-ANSWER == questions[questionNumber].correctChoice) {
-    //     questionNumber++
-    // } else {
-    //     questionNumber++;
-    //     (secondsLeft--);
-    // }
     questionDisplay();
-   }}
+   }
 
 // displays the appropriate content based on current question counter; triggered by function nextQuestion
 function questionDisplay() {
@@ -91,42 +90,40 @@ function questionDisplay() {
 }
 
 
-// moves the player to the final screen that displays final score
+// moves the player to the final screen that displays final score and asks for initials
 function gameOver() {
-    introText.style.display= "block"
-    introText.textContent= "Your final score is..."
-    titleHeader.textContent= "WELL DONE!"
-    multiChoiceSpace.style.display= "none"
-    questionSpace.style.display= "none"
+    localStorage.setItem("final-score", secondsLeft);
+    document.querySelector("#timer").innerHTML = '0 Seconds Left';
+    introText.style.display= "block";
+    introText.textContent= "Your final score is..." + localStorage.getItem("final-score", secondsLeft);
+    titleHeader.textContent= "WELL DONE!";
+    multiChoiceSpace.style.display= "none";
+    questionSpace.style.display= "none";
+    playerInitials.style.display= "block";
 }
 
 
-
-
-
-
-
-// event listeners
-startButton.addEventListener("click", function (begin) {
-    begin.preventDefault();
+// event listener for when the Start Quiz button is pressed
+startButton.addEventListener("click", function(event) {
+    event.preventDefault();
     beginQuiz();
 })
 
-choice1.addEventListener("click", function (answer) {
-    answer.preventDefault()
-    nextQuestion()
-})
-choice2.addEventListener("click", function (answer) {
-    answer.preventDefault()
-    nextQuestion()
-})
-choice3.addEventListener("click", function (answer) {
-    answer.preventDefault()
-    nextQuestion()
-})
-choice4.addEventListener("click", function (answer) {
-    answer.preventDefault()
-    nextQuestion()
+// event listener for when a multi-choice option is selected, proceeds the quiz, deducts points if necessary
+multiChoiceSpace.addEventListener("click", function(event) {
+    var element = event.target;
+    if (element.matches(".choice")) {
+    
+    if (element.innerHTML !== questions[questionNumber].correctChoice) {
+        secondsLeft = (secondsLeft-10)
+    }
+    
+    nextQuestion();
+}
 })
 
-
+// event listener that saves the player's initials after finishing the quiz
+saveInitialsBtn.addEventListener("click", function(event) {
+    event.preventDefault;
+    localStorage.setItem("player-name", playerName.value)
+})
