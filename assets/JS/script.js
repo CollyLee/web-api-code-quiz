@@ -13,7 +13,7 @@ var titleHeader = document.querySelector("#intro-header")
 var playerInitials = document.querySelector("#player-initials")
 var saveInitialsBtn = document.querySelector("#save-initials")
 var playerName = document.querySelector("#name")
-var prevScore = document.querySelector("#prev-score").textContent= "Previous Score: "+localStorage.getItem("player-name") +" - "+localStorage.getItem("final-score")
+var prevScore = document.querySelector("#prev-score").textContent = "Previous Score: " + localStorage.getItem("player-name") + " - " + localStorage.getItem("final-score")
 
 
 
@@ -47,10 +47,10 @@ var questions = [
 
 // starts off the quiz when the Start Quiz button is clicked
 function beginQuiz() {
-    startButton.style.display= "none"
-    introText.style.display= "none"
-    multiChoiceSpace.style.display= "flex"
-    questionSpace.style.display= "block"
+    startButton.style.display = "none"
+    introText.style.display = "none"
+    multiChoiceSpace.style.display = "flex"
+    questionSpace.style.display = "block"
     console.log("Quiz begun");
     setTime()
     questionDisplay();
@@ -58,31 +58,43 @@ function beginQuiz() {
 
 // starts the timer when the Start Quiz button is clicked
 function setTime() {
-    var timerInterval = setInterval(function() {
+    var timerInterval = setInterval(function () {
         secondsLeft--;
         timer.textContent = secondsLeft + " seconds left";
 
-        if (questionNumber > (questions.length-1)) {
-            clearInterval(timerInterval);
-            gameOver();
-            return null;
-        }
-        
         if (secondsLeft <= 0) {
             clearInterval(timerInterval);
-           alert("TIME'S UP!")
+            alert("TIME'S UP!")
             gameOver()
+        }
+
+        if (questionNumber > (questions.length - 1)) {
+            clearInterval(timerInterval);
+            return null;
         }
     }, 1000);
 }
 
-// moves on to the next question and deducts time if appropriate
-function nextQuestion() {
-    questionNumber++;
-    questionDisplay();
-   }
+function proceed(event) {
+    var element = event.target;
+    if (element.matches(".choice")) {
 
-// displays the appropriate content based on current question counter; triggered by function nextQuestion
+        if (element.innerHTML !== questions[questionNumber].correctChoice) {
+            secondsLeft = (secondsLeft - 10)
+        }
+
+    questionNumber++;
+    
+    if (questionNumber > (questions.length - 1)) {
+        gameOver();
+        return null;
+    }
+    
+    questionDisplay();;
+    }
+}
+
+// displays the appropriate content based on current question counter; triggered by function proceed()
 function questionDisplay() {
     questionSpace.textContent = questions[questionNumber].questionText
     choice1.textContent = questions[questionNumber].multiChoiceOptions[0]
@@ -92,41 +104,27 @@ function questionDisplay() {
     console.log(questionNumber)
 }
 
-
 // moves the player to the final screen that displays final score and asks for initials
 function gameOver() {
     localStorage.setItem("final-score", secondsLeft);
     document.querySelector("#timer").innerHTML = '0 Seconds Left!';
-    introText.style.display= "block";
-    introText.textContent= "Your final score is..." + localStorage.getItem("final-score", secondsLeft);
-    titleHeader.textContent= "WELL DONE!";
-    multiChoiceSpace.style.display= "none";
-    questionSpace.style.display= "none";
-    playerInitials.style.display= "block";
+    introText.style.display = "block";
+    introText.textContent = "Your final score is..." + localStorage.getItem("final-score", secondsLeft);
+    titleHeader.textContent = "WELL DONE! You are a Pokemon master!";
+    multiChoiceSpace.style.display = "none";
+    questionSpace.style.display = "none";
+    playerInitials.style.display = "block";
 }
 
 
 // event listener for when the Start Quiz button is pressed
-startButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    beginQuiz();
-})
+startButton.addEventListener("click", beginQuiz)
 
 // event listener for when a multi-choice option is selected, proceeds the quiz, deducts points if necessary
-multiChoiceSpace.addEventListener("click", function(event) {
-    var element = event.target;
-    if (element.matches(".choice")) {
-    
-    if (element.innerHTML !== questions[questionNumber].correctChoice) {
-        secondsLeft = (secondsLeft-10)
-    }
-    
-    nextQuestion();
-}
-})
+multiChoiceSpace.addEventListener("click", proceed)
 
 // event listener that saves the player's initials after finishing the quiz
-saveInitialsBtn.addEventListener("click", function(event) {
+saveInitialsBtn.addEventListener("click", function (event) {
     event.preventDefault;
     localStorage.setItem("player-name", playerName.value)
 })
