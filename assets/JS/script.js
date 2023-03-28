@@ -13,6 +13,9 @@ var titleHeader = document.querySelector("#intro-header")
 var playerInitials = document.querySelector("#player-initials")
 var saveInitialsBtn = document.querySelector("#save-initials")
 var playerName = document.querySelector("#name")
+var prevScore = document.querySelector("#prev-score").textContent= "Previous Score: "+localStorage.getItem("player-name") +" - "+localStorage.getItem("final-score")
+
+
 
 // starts the quiz at question 1
 var questionNumber = 0
@@ -93,7 +96,7 @@ function questionDisplay() {
 // moves the player to the final screen that displays final score and asks for initials
 function gameOver() {
     localStorage.setItem("final-score", secondsLeft);
-    document.querySelector("#timer").innerHTML = '0 Seconds Left';
+    document.querySelector("#timer").innerHTML = '0 Seconds Left!';
     introText.style.display= "block";
     introText.textContent= "Your final score is..." + localStorage.getItem("final-score", secondsLeft);
     titleHeader.textContent= "WELL DONE!";
