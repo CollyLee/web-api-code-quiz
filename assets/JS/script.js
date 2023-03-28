@@ -15,7 +15,7 @@ var saveInitialsBtn = document.querySelector("#save-initials")
 var playerName = document.querySelector("#name")
 var prevScore = document.querySelector("#prev-score").textContent = "Previous Score: " + localStorage.getItem("player-name") + " - " + localStorage.getItem("final-score")
 
-
+console.log(localStorage.getItem("player-name"));
 
 // starts the quiz at question 1
 var questionNumber = 0
@@ -45,6 +45,13 @@ var questions = [
     },
 ]
 
+function renderPrevScore() {
+    if (localStorage.getItem("player-name") != null) {
+    document.querySelector("#prev-score").textContent = "Previous Score: " + localStorage.getItem("player-name") + " - " + localStorage.getItem("final-score")
+    } else {
+        return
+    }
+}
 // starts off the quiz when the Start Quiz button is clicked
 function beginQuiz() {
     startButton.style.display = "none"
@@ -83,14 +90,14 @@ function proceed(event) {
             secondsLeft = (secondsLeft - 10)
         }
 
-    questionNumber++;
-    
-    if (questionNumber > (questions.length - 1)) {
-        gameOver();
-        return null;
-    }
-    
-    questionDisplay();;
+        questionNumber++;
+
+        if (questionNumber > (questions.length - 1)) {
+            gameOver();
+            return null;
+        }
+
+        questionDisplay();;
     }
 }
 
